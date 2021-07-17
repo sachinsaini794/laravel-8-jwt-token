@@ -15,6 +15,7 @@ class ProductController extends Controller
     public function __construct()
     {
         $this->user = JWTAuth::parseToken()->authenticate();
+        $this->role = JWTAuth::payload()->get('role');
     }
 
     /**
@@ -24,6 +25,7 @@ class ProductController extends Controller
      */
     public function index()
     {
+        return $this->role;
         return $this->user->products()->get();
     }
 

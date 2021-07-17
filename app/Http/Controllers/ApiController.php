@@ -56,10 +56,16 @@ class ApiController extends Controller
             return response()->json(['error' => $validator->messages()], 200);
         }
 
-        //Request is validated
-        //Crean token
+        // $user = User::where('email',$request->email)->first();
+
+
+        $customClaims = ['role'=>'admin'];
+
+        //Request is 
+        //Crean tokenvalidated
+
         try {
-            if (! $token = JWTAuth::attempt($credentials)) {
+            if (! $token = JWTAuth::claims($customClaims)->attempt($credentials)) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Login credentials are invalid.',
